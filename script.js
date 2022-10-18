@@ -45,26 +45,50 @@ function playRound(playerSelection, computerSelection) {
   playerSelection = getPlayerChoice();
   computerSelection = getComputerChoice();
 
+  let englishComputerSelection,
+      englishPlayerSelection;
+
+  switch (true) {
+    case playerSelection == 1:
+      englishPlayerSelection = 'Rock';
+      break;
+    case playerSelection == 2:
+      englishPlayerSelection = 'Paper';
+      break;
+    case playerSelection == 3:
+      englishPlayerSelection = 'Scissors';
+      break;
+  }
+
+  switch (true) {
+    case computerSelection == 1:
+      englishComputerSelection = 'Rock';
+      break;
+    case computerSelection == 2:
+      englishComputerSelection = 'Paper';
+      break;
+    case computerSelection == 3:
+      englishComputerSelection = 'Scissors';
+      break;                      
+  }
+
   if (playerSelection == computerSelection) {
     alert('The computer matched your move! Go again.');
     playRound();
-  } else if ((playerSelection == 1 && computerSelection == 3) || (playerSelection > computerSelection)) {
-    // player wins
-  } else if ((computerSelection ==1 && playerSelection ==3) || (computerSelection > playerSelection)) {
-    // computer wins
+  } else if (playerSelection == 1 && computerSelection == 3) {
+    alert(`You win! ${englishPlayerSelection} beats ${englishComputerSelection}.`);
+  } else if (computerSelection == 1 && playerSelection == 3) {
+    alert(`You lose! ${englishComputerSelection} beats ${englishPlayerSelection}.`);    
+  } else if (playerSelection > computerSelection) {
+    alert(`You win! ${englishPlayerSelection} beats ${englishComputerSelection}.`);
+  } else if (computerSelection > playerSelection) {
+    alert(`You lose! ${englishComputerSelection} beats ${englishPlayerSelection}.`);    
   }
-  // plays a single round
-  // returns a string that declares the winner of the round like so:
-  // 'You Lose! Paper beats Rock'
-  // make playerSelection case-insensitive (rock, ROCK, RoCk should all work)
 }
 
 function game() {
 
 }
-
-
-
 
 /* 
 
