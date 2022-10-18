@@ -1,5 +1,10 @@
 function getComputerChoice(){
-  // will randomly return either rock, paper, or scissors
+  let num = Math.floor(Math.random() * 100);
+  console.log(num);
+  let choice = num <= 33 ? 'Rock' : 
+  num > 33 && num < 66 ? 'Paper' :
+  'Scissors';
+  return choice;
 }
 
 function playRound(playerSelection, computerSelection) {
@@ -10,5 +15,7 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function game() {
-  
+
 }
+
+console.log(getComputerChoice());
