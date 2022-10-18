@@ -1,4 +1,6 @@
 // For get_Choice functions, 1 is rock, 2 is paper, 3 is scissors
+let playerWins = 0;
+let computerWins = 0;
 
 function getComputerChoice() {
   let num = Math.floor(Math.random() * 100);
@@ -77,25 +79,35 @@ function playRound(playerSelection, computerSelection) {
     playRound();
   } else if (playerSelection == 1 && computerSelection == 3) {
     alert(`You win! ${englishPlayerSelection} beats ${englishComputerSelection}.`);
+    playerWins++;
+    return `You win! ${englishPlayerSelection} beats ${englishComputerSelection}.`;
   } else if (computerSelection == 1 && playerSelection == 3) {
     alert(`You lose! ${englishComputerSelection} beats ${englishPlayerSelection}.`);    
+    computerWins++;
+    return `You lose! ${englishComputerSelection} beats ${englishPlayerSelection}.`;
   } else if (playerSelection > computerSelection) {
     alert(`You win! ${englishPlayerSelection} beats ${englishComputerSelection}.`);
+    playerWins++;
+    return `You win! ${englishPlayerSelection} beats ${englishComputerSelection}.`;
   } else if (computerSelection > playerSelection) {
     alert(`You lose! ${englishComputerSelection} beats ${englishPlayerSelection}.`);    
+    computerWins++;
+    return `You lose! ${englishComputerSelection} beats ${englishPlayerSelection}.`;
   }
 }
 
 function game() {
-
+  for (i = 1; i <= 5; i++) {
+    playRound();
+    console.log(playerWins, computerWins);
+    if (playerWins == 3) {
+      alert('🎊🎊🎊 You\'ve won the best of 5! Congratulations! 🎊🎊🎊')
+      break;
+    } else if (computerWins == 3) {
+      alert('The computer won this best of 5, but you can always try again.')
+      break;
+    }    
+  }
+  playerWins = 0;
+  computerWins = 0;
 }
-
-/* 
-
-  - Translate choice to numerical value (1R 2P 3S)
-  - If one choice is rock and one choice is scissors, do special logic
-  - Else, compare the two numbers, determine which one is higher
-  - declare higher number as winner
-  - return higher number as winner
-
- */
