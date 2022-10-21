@@ -1,21 +1,35 @@
+let playerWins = 0;
+let computerWins = 0;
+
 const results = document.querySelector('.results');
 
 const playerWinsDisplay = document.createElement('h2');
 const computerWinsDisplay = document.createElement('h2');
 const narrator = document.createElement('h3');
 
+const playAgain = document.createElement('button');
+playAgain.textContent = 'Play again?';
+playAgain.className = 'play-again-button';
+
+
 results.appendChild(playerWinsDisplay);
 results.appendChild(computerWinsDisplay);
 results.appendChild(narrator);
 
+playerWinsDisplay.textContent = `You: ${playerWins}`;
+computerWinsDisplay.textContent = `Computer: ${computerWins}`;
+narrator.textContent = 'First to 5 wins. Make your move.';
 
-
+function resetGame() {
+  playerWins = 0;
+  computerWins = 0;
+  playerWinsDisplay.textContent = `You: ${playerWins}`;
+  computerWinsDisplay.textContent = `Computer: ${computerWins}`;
+  narrator.textContent = 'First to 5 wins. Make your move.';
+  playAgain.remove();
+}
 
 // For get_Choice functions, 1 is rock, 2 is paper, 3 is scissors
-let playerWins = 0;
-playerWinsDisplay.textContent = `You: ${playerWins}`;
-let computerWins = 0;
-computerWinsDisplay.textContent = `Computer: ${computerWins}`;
 
 function getComputerChoice() {
   let num = Math.floor(Math.random() * 100);
@@ -35,14 +49,8 @@ function getComputerChoice() {
   return choice;
 }
 
-function getPlayerChoice() {
-
-}
-
 function playRound(playerSelection, computerSelection) {
-   if (!playerSelection) {
-    playerSelection = getPlayerChoice();
-   }
+
   computerSelection = getComputerChoice();
 
   let englishComputerSelection,
@@ -71,55 +79,53 @@ function playRound(playerSelection, computerSelection) {
       englishComputerSelection = 'Scissors';
       break;                      
   }
-
+  
   if (playerSelection == computerSelection) {
-    narrator.textContent = 'It\'s a tie. Go again.';
+    narrator.textContent = 'Computer matched your move. Go again.';
     playRound();
   } else if (playerSelection == 1 && computerSelection == 3) {
-    narrator.textContent = (`You win! ${englishPlayerSelection} beats ${englishComputerSelection}.`);
+    narrator.textContent = (`You win this round! ${englishPlayerSelection} beats ${englishComputerSelection}.`);
     playerWins++;
     playerWinsDisplay.textContent = `You: ${playerWins}`;
-    return `You win! ${englishPlayerSelection} beats ${englishComputerSelection}.`;
+    if (playerWins >= 5) {
+      narrator.textContent = '🎊🎊🎊 You won the game. Congratulations 🎊🎊🎊 ';
+      results.appendChild(playAgain);
+      return narrator.textContent = '🎊🎊🎊 You won the game. Congratulations 🎊🎊🎊 ';
+    }
+    return `You win this round! ${englishPlayerSelection} beats ${englishComputerSelection}.`;
   } else if (computerSelection == 1 && playerSelection == 3) {
-    narrator.textContent = (`You lose! ${englishComputerSelection} beats ${englishPlayerSelection}.`);    
+    narrator.textContent = (`You lose this round! ${englishComputerSelection} beats ${englishPlayerSelection}.`);    
     computerWins++;
     computerWinsDisplay.textContent = `Computer: ${computerWins}`;
-    return `You lose! ${englishComputerSelection} beats ${englishPlayerSelection}.`;
+    if (computerWins >= 5) {
+      narrator.textContent = ('🌧️🌧️🌧️ The computer beat you. Better luck next time. 🌧️🌧️🌧️');
+      results.appendChild(playAgain);
+      return ('🌧️🌧️🌧️ The computer beat you. Better luck next time. 🌧️🌧️🌧️');
+    }
+    return `You lose this round! ${englishComputerSelection} beats ${englishPlayerSelection}.`;
   } else if (playerSelection > computerSelection) {
-    narrator.textContent = (`You win! ${englishPlayerSelection} beats ${englishComputerSelection}.`);
+    narrator.textContent = (`You win this round! ${englishPlayerSelection} beats ${englishComputerSelection}.`);
     playerWins++;
     playerWinsDisplay.textContent = `You: ${playerWins}`;
-    return `You win! ${englishPlayerSelection} beats ${englishComputerSelection}.`;
+    if (playerWins >= 5) {
+      narrator.textContent = '🎊🎊🎊 You won the game. Congratulations 🎊🎊🎊 ';
+      results.appendChild(playAgain);
+      return '🎊🎊🎊 You won the game. Congratulations 🎊🎊🎊 ';
+    };
+    return `You win this round! ${englishPlayerSelection} beats ${englishComputerSelection}.`;
   } else if (computerSelection > playerSelection) {
-    narrator.textContent = (`You lose! ${englishComputerSelection} beats ${englishPlayerSelection}.`);    
+    narrator.textContent = (`You lose this round! ${englishComputerSelection} beats ${englishPlayerSelection}.`);    
     computerWins++;
     computerWinsDisplay.textContent = `Computer: ${computerWins}`;
-    return `You lose! ${englishComputerSelection} beats ${englishPlayerSelection}.`;
-  }
-
+    if (computerWins >= 5) {
+      narrator.textContent = ('🌧️🌧️🌧️ The computer beat you. Better luck next time. 🌧️🌧️🌧️');
+      results.appendChild(playAgain);
+      return '🌧️🌧️🌧️ The computer beat you. Better luck next time 🌧️🌧️🌧️.';
+    }
+    return `You lose this round! ${englishComputerSelection} beats ${englishPlayerSelection}.`;
+  } 
 }
 
-function game() {
-  playRound();
-}
-
-// CLI game() function code:
-
-// function game() {
-//   for (i = 1; i <= 5; i++) {
-//     playRound();
-//     console.log(playerWins, computerWins);
-//     if (playerWins == 3) {
-//       alert('🎊🎊🎊 You\'ve won the best of 5! Congratulations! 🎊🎊🎊')
-//       break;
-//     } else if (computerWins == 3) {
-//       alert('The computer won this best of 5, but you can always try again.')
-//       break;
-//     }    
-//   }
-//   playerWins = 0;
-//   computerWins = 0;
-// }
 
 
 // Button selection event listeners:
@@ -136,4 +142,8 @@ buttons.forEach((button) => {
       playRound(3);
     }
   });
+});
+
+playAgain.addEventListener('click', () => {
+  resetGame();
 });

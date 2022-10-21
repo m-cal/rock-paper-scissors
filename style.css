@@ -12,3 +12,9 @@ h1, h2, h3 {
  height: 2rem;
  width: 5rem; 
 }
+
+.play-again-button {
+  height: 2.5rem;
+  width: 5rem;
+  margin: 20px;
+}
