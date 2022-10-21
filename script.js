@@ -1,6 +1,21 @@
+const results = document.querySelector('.results');
+
+const playerWinsDisplay = document.createElement('h2');
+const computerWinsDisplay = document.createElement('h2');
+const narrator = document.createElement('h3');
+
+results.appendChild(playerWinsDisplay);
+results.appendChild(computerWinsDisplay);
+results.appendChild(narrator);
+
+
+
+
 // For get_Choice functions, 1 is rock, 2 is paper, 3 is scissors
 let playerWins = 0;
+playerWinsDisplay.textContent = `You: ${playerWins}`;
 let computerWins = 0;
+computerWinsDisplay.textContent = `Computer: ${computerWins}`;
 
 function getComputerChoice() {
   let num = Math.floor(Math.random() * 100);
@@ -21,30 +36,13 @@ function getComputerChoice() {
 }
 
 function getPlayerChoice() {
-  let text = prompt('What will it be? Rock, paper, or scissors?').toLowerCase();
 
-  while (text !== 'rock' && text !== 'paper' && text !== 'scissors') {
-    alert('Please enter rock, paper, or scissors.');
-    text = prompt('What will it be? Rock, paper, or scissors?');
-  }
-
-  switch (text) {
-    case 'rock':
-      choice = 1;
-      break;
-    case 'paper':
-      choice = 2;
-      break;
-    case 'scissors':
-      choice = 3;
-      break;
-  }
-
-  return choice;
 }
 
 function playRound(playerSelection, computerSelection) {
-  playerSelection = getPlayerChoice();
+   if (!playerSelection) {
+    playerSelection = getPlayerChoice();
+   }
   computerSelection = getComputerChoice();
 
   let englishComputerSelection,
@@ -75,39 +73,67 @@ function playRound(playerSelection, computerSelection) {
   }
 
   if (playerSelection == computerSelection) {
-    alert('The computer matched your move! Go again.');
+    narrator.textContent = 'It\'s a tie. Go again.';
     playRound();
   } else if (playerSelection == 1 && computerSelection == 3) {
-    alert(`You win! ${englishPlayerSelection} beats ${englishComputerSelection}.`);
+    narrator.textContent = (`You win! ${englishPlayerSelection} beats ${englishComputerSelection}.`);
     playerWins++;
+    playerWinsDisplay.textContent = `You: ${playerWins}`;
     return `You win! ${englishPlayerSelection} beats ${englishComputerSelection}.`;
   } else if (computerSelection == 1 && playerSelection == 3) {
-    alert(`You lose! ${englishComputerSelection} beats ${englishPlayerSelection}.`);    
+    narrator.textContent = (`You lose! ${englishComputerSelection} beats ${englishPlayerSelection}.`);    
     computerWins++;
+    computerWinsDisplay.textContent = `Computer: ${computerWins}`;
     return `You lose! ${englishComputerSelection} beats ${englishPlayerSelection}.`;
   } else if (playerSelection > computerSelection) {
-    alert(`You win! ${englishPlayerSelection} beats ${englishComputerSelection}.`);
+    narrator.textContent = (`You win! ${englishPlayerSelection} beats ${englishComputerSelection}.`);
     playerWins++;
+    playerWinsDisplay.textContent = `You: ${playerWins}`;
     return `You win! ${englishPlayerSelection} beats ${englishComputerSelection}.`;
   } else if (computerSelection > playerSelection) {
-    alert(`You lose! ${englishComputerSelection} beats ${englishPlayerSelection}.`);    
+    narrator.textContent = (`You lose! ${englishComputerSelection} beats ${englishPlayerSelection}.`);    
     computerWins++;
+    computerWinsDisplay.textContent = `Computer: ${computerWins}`;
     return `You lose! ${englishComputerSelection} beats ${englishPlayerSelection}.`;
   }
+
 }
 
 function game() {
-  for (i = 1; i <= 5; i++) {
-    playRound();
-    console.log(playerWins, computerWins);
-    if (playerWins == 3) {
-      alert('🎊🎊🎊 You\'ve won the best of 5! Congratulations! 🎊🎊🎊')
-      break;
-    } else if (computerWins == 3) {
-      alert('The computer won this best of 5, but you can always try again.')
-      break;
-    }    
-  }
-  playerWins = 0;
-  computerWins = 0;
+  playRound();
 }
+
+// CLI game() function code:
+
+// function game() {
+//   for (i = 1; i <= 5; i++) {
+//     playRound();
+//     console.log(playerWins, computerWins);
+//     if (playerWins == 3) {
+//       alert('🎊🎊🎊 You\'ve won the best of 5! Congratulations! 🎊🎊🎊')
+//       break;
+//     } else if (computerWins == 3) {
+//       alert('The computer won this best of 5, but you can always try again.')
+//       break;
+//     }    
+//   }
+//   playerWins = 0;
+//   computerWins = 0;
+// }
+
+
+// Button selection event listeners:
+
+const buttons = document.querySelectorAll('button');
+
+buttons.forEach((button) => {
+  button.addEventListener('click', () => {
+    if (button.classList.value === 'rock-button') {
+      playRound(1);
+    } else if (button.classList.value === 'paper-button') {
+      playRound(2);
+    } else if (button.classList.value === 'scissors-button') {
+      playRound(3);
+    }
+  });
+});
