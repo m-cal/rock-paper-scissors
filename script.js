@@ -6,6 +6,7 @@ const results = document.querySelector('.results');
 const playerWinsDisplay = document.createElement('h2');
 const computerWinsDisplay = document.createElement('h2');
 const narrator = document.createElement('h3');
+const buttonsDiv = document.querySelector('.buttons-div');
 
 const playAgain = document.createElement('button');
 playAgain.textContent = 'Play again?';
@@ -27,26 +28,34 @@ function resetGame() {
   computerWinsDisplay.textContent = `Computer: ${computerWins}`;
   narrator.textContent = 'First to 5 wins. Make your move.';
   playAgain.remove();
+  buttonsDiv.removeAttribute('hidden');
 }
 
 // For get_Choice functions, 1 is rock, 2 is paper, 3 is scissors
 
 function getComputerChoice() {
   let num = Math.floor(Math.random() * 100);
-  let choice;
-
   switch (true) {
     case (num <= 33):
-      choice = 1;
-      break;
+      return 1;
     case (num > 33 && num <= 66):
-      choice = 2;
-      break;
-    case (num > 66):
-      choice = 3;
-      break;
+      return 2;
+    case (num >= 66 && num <=99):
+      return 3;
+    default:
+      return getComputerChoice();
   }
-  return choice;
+}
+
+function getEnglishChoice(selection) {
+  switch (selection) {
+    case 1:
+      return 'Rock';
+    case 2:
+      return 'Paper';
+    case 3:
+      return 'Scissors';
+  }
 }
 
 function playRound(playerSelection, computerSelection) {
@@ -55,31 +64,10 @@ function playRound(playerSelection, computerSelection) {
 
   let englishComputerSelection,
       englishPlayerSelection;
+      
+  englishPlayerSelection = getEnglishChoice(playerSelection);
+  englishComputerSelection = getEnglishChoice(computerSelection);
 
-  switch (true) {
-    case playerSelection == 1:
-      englishPlayerSelection = 'Rock';
-      break;
-    case playerSelection == 2:
-      englishPlayerSelection = 'Paper';
-      break;
-    case playerSelection == 3:
-      englishPlayerSelection = 'Scissors';
-      break;
-  }
-
-  switch (true) {
-    case computerSelection == 1:
-      englishComputerSelection = 'Rock';
-      break;
-    case computerSelection == 2:
-      englishComputerSelection = 'Paper';
-      break;
-    case computerSelection == 3:
-      englishComputerSelection = 'Scissors';
-      break;                      
-  }
-  
   if (playerSelection == computerSelection) {
     narrator.textContent = 'Computer matched your move. Go again.';
     playRound();
@@ -101,6 +89,7 @@ function winnerPrint(englishComputerSelection, englishPlayerSelection) {
   if (playerWins >= 5) {
     narrator.textContent = '🎊🎊🎊 You won the game. Congratulations 🎊🎊🎊 ';
     results.appendChild(playAgain);
+    buttonsDiv.setAttribute('hidden', true);
     return '🎊🎊🎊 You won the game. Congratulations 🎊🎊🎊 ';
   };
   return `You win this round! ${englishPlayerSelection} beats ${englishComputerSelection}.`;
@@ -113,6 +102,7 @@ function loserPrint(englishComputerSelection, englishPlayerSelection) {
   if (computerWins >= 5) {
     narrator.textContent = ('🌧️🌧️🌧️ The computer beat you. Better luck next time. 🌧️🌧️🌧️');
     results.appendChild(playAgain);
+    buttonsDiv.setAttribute('hidden', true);
     return ('🌧️🌧️🌧️ The computer beat you. Better luck next time. 🌧️🌧️🌧️');
   }
   return `You lose this round! ${englishComputerSelection} beats ${englishPlayerSelection}.`;  
