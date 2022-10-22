@@ -8,7 +8,7 @@ h1, h2, h3 {
   color: gold;
 }
 
-.rock-button, .paper-button, .scissors-button {
+button {
  height: 2rem;
  width: 5rem; 
 }
