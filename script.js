@@ -100,10 +100,10 @@ function loserPrint(englishComputerSelection, englishPlayerSelection) {
   computerWins++;
   computerWinsDisplay.textContent = `Computer: ${computerWins}`;
   if (computerWins >= 5) {
-    narrator.textContent = ('🌧️🌧️🌧️ The computer beat you. Better luck next time. 🌧️🌧️🌧️');
+    narrator.textContent = ('☔☔☔ The computer beat you. Better luck next time. ☔☔☔');
     results.appendChild(playAgain);
     buttonsDiv.setAttribute('hidden', true);
-    return ('🌧️🌧️🌧️ The computer beat you. Better luck next time. 🌧️🌧️🌧️');
+    return ('☔☔☔ The computer beat you. Better luck next time. ☔☔☔');
   }
   return `You lose this round! ${englishComputerSelection} beats ${englishPlayerSelection}.`;  
 }
