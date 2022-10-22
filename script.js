@@ -87,10 +87,10 @@ function winnerPrint(englishComputerSelection, englishPlayerSelection) {
   playerWins++;
   playerWinsDisplay.textContent = `You: ${playerWins}`;
   if (playerWins >= 5) {
-    narrator.textContent = '🎊🎊🎊 You won the game. Congratulations 🎊🎊🎊 ';
+    narrator.textContent = '🎊🎊🎊 You won the game. Congratulations! 🎊🎊🎊 ';
     results.appendChild(playAgain);
     buttonsDiv.setAttribute('hidden', true);
-    return '🎊🎊🎊 You won the game. Congratulations 🎊🎊🎊 ';
+    return '🎊🎊🎊 You won the game. Congratulations! 🎊🎊🎊 ';
   };
   return `You win this round! ${englishPlayerSelection} beats ${englishComputerSelection}.`;
 }
