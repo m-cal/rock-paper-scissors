@@ -3,9 +3,9 @@ let computerWins = 0;
 
 const results = document.querySelector('.results');
 
-const playerWinsDisplay = document.createElement('h2');
-const computerWinsDisplay = document.createElement('h2');
-const narrator = document.createElement('h3');
+const playerWinsDisplay = document.createElement('p');
+const computerWinsDisplay = document.createElement('p');
+const narrator = document.createElement('p');
 const buttonsDiv = document.querySelector('.buttons-div');
 
 const playAgain = document.createElement('button');
@@ -69,7 +69,7 @@ function playRound(playerSelection, computerSelection) {
   englishComputerSelection = getEnglishChoice(computerSelection);
 
   if (playerSelection == computerSelection) {
-    narrator.textContent = 'Computer matched your move. Go again.';
+    narrator.textContent = '🪢 Tie round! Go again.';
     playRound();
   } else if (playerSelection == 1 && computerSelection == 3) {
     return winnerPrint(englishComputerSelection, englishPlayerSelection);
