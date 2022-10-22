@@ -50,11 +50,11 @@ function getComputerChoice() {
 function getEnglishChoice(selection) {
   switch (selection) {
     case 1:
-      return 'Rock';
+      return '🪨';
     case 2:
-      return 'Paper';
+      return '📃';
     case 3:
-      return 'Scissors';
+      return '✂️';
   }
 }
 

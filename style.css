@@ -34,3 +34,11 @@ button {
 .play-again-button {
   background-color: #A563E1;
 }
+
+button:hover {background-color: #772c93}
+
+button:active {
+  background-color: #20a89c;
+  box-shadow: 0 5px #262626;
+  transform: translateY(4px);
+}
