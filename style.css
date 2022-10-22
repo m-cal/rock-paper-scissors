@@ -42,3 +42,13 @@ button:active {
   box-shadow: 0 5px #262626;
   transform: translateY(4px);
 }
+
+h1 {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+  color: #DAAD1B;
+  font-weight: 900;
+  font-size: 4rem;
+  font-family: 'Vidaloka', serif;
+  text-shadow: 0 0 3px black;
+}
